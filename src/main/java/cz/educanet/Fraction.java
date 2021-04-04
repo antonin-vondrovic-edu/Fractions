@@ -6,71 +6,76 @@ public class Fraction {
     private final int denominator;
 
     public Fraction(int numerator, int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+        this.numerator = numerator; // to nahoře
+        this.denominator = denominator; // to dole
     }
 
     //region: basic operations (+, -, *, /)
-    /**
-     * Adds the fraction to the other fraction. Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
+
+
+    //Adds the fraction to the other fraction. Returns a new fraction.
+
     public Fraction plus(Fraction other) {
-        throw new UnsupportedOperationException();
+        int lcm, count;
+        lcm = MathUtils.findLowestCommonMultiple(denominator, other.denominator);
+        count = (numerator * lcm / denominator) + (other.numerator * lcm / other.denominator);
+
+        return new Fraction(count, lcm);
     }
 
-    /**
-     * Subtracts other from the fraction. Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
+
+    //Subtracts other from the fraction. Returns a new fraction.
     public Fraction minus(Fraction other) {
-        throw new UnsupportedOperationException();
+        int lcm, count;
+        lcm = MathUtils.findLowestCommonMultiple(denominator, other.denominator);
+
+        count = (numerator * lcm / denominator) - (other.numerator * lcm / other.denominator);
+
+        return new Fraction(count, lcm);
     }
 
-    /**
-     * Multiplies the two fractions. Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
+
+    //Multiplies the two fractions. Returns a new fraction.
+
     public Fraction times(Fraction other) {
-        throw new UnsupportedOperationException();
+        int countNum, countDenom;
+
+        countNum = numerator * other.numerator;
+        countDenom = denominator * other.denominator;
+
+        return new Fraction(countNum, countDenom);
     }
 
-    /**
-     * Divides the two fractions (this / other). Returns a new fraction.
-     * @param other
-     * @return new fraction
-     */
+
+    //Divides the two fractions (this / other). Returns a new fraction.
     public Fraction dividedBy(Fraction other) {
-        throw new UnsupportedOperationException();
+        int countNum, countDenom;
+
+        countNum = numerator * other.getReciprocal().numerator;
+        countDenom = denominator * other.getReciprocal().denominator;
+
+        return new Fraction(countNum, countDenom);
     }
     //endregion
 
     //region: other operations
-    /**
-     * Gets the reciprocal (flipped) of the fraction. ie. reciprocal of 1/2 is 2/1
-     * @return new fraction
-     */
+
+
+    //Gets the reciprocal (flipped) of the fraction. ie. reciprocal of 1/2 is 2/1
     public Fraction getReciprocal() {
-        throw new UnsupportedOperationException();
+        return new Fraction(denominator, numerator);
     }
 
-    /**
-     * Simplifies the fraction
-     * @return new fraction
-     */
+    //Simplifies the fraction
     public Fraction simplify() {
-        throw new UnsupportedOperationException();
+        int gcd = MathUtils.findGreatestCommonDenominator(numerator, denominator);
+        return new Fraction(numerator / gcd, denominator / gcd);
     }
 
-    /**
-     * Calculates the floating value of the fraction.
-     * @return float
-     */
+
+    //Calculates the floating value of the fraction.
     public float toFloat() {
-        throw new UnsupportedOperationException();
+        return (float) numerator / (float) denominator;
     }
     //endregion
 
